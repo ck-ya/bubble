@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-widthinitial-scale=1.0">
+    <title>Bubble - Share Your Dreams</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="logo">☕ Bubble</div>
+            </div>
+
+            <div class="nav" id="nav">
+                <button class="active" onclick="showPage('dreams')">Dreams</button>
+                <button onclick="showPage('user')">Profile</button>
+                <button onclick="showPage('about')">About</button>
+            </div>
+
+            <div id="authBtns">
+                <button class="btn btn-primary" onclick="showModal('auth')">Login</button>
+            </div>
+            <div id="userInfo" class="hidden" style="display: flex; align-items: center; gap: 10px;">
+                <span id="username" style="color: #666; font-weight: 500;"></span>
+                <button class="btn btn-secondary" onclick="logout()">Logout</button>
+            </div>
+        </header>
+
+        <!-- Dreams Page -->
+        <div id="dreamsPage">
+            <div class="filters">
+                <div class="filter-btns">
+                    <button class="active" onclick="setFilter('latest')">Latest</button>
+                    <button onclick="setFilter('popular')">Popular</button>
+                </div>
+                <button class="btn btn-primary" id="newPostBtn" onclick="showModal('newPost')">Share Dream</button>
+            </div>
+            <div class="posts" id="postsContainer">
+                <div class="loading">Loading dreams...</div>
+            </div>
+        </div>
+
+        <!-- User Page -->
+        <div id="userPage" class="hidden">
+            <div id="profileContent"></div>
+        </div>
+
+        <!-- About Page -->
+        <div id="aboutPage" class="hidden">
+            <div class="about-content">
+                <h2>Lucid Dreaming 101</h2>
+
+                <h3>What's Lucid Dreaming?</h3>
+                <p>Ngl, it's when you know you're dreaming while you're still in the dream. You can control stuff, fly around, do whatever tf you want. Pretty damn cool.</p>
+
+                <h3>How to Get Started</h3>
+                <p><strong>Reality Checks:</strong> Keep asking yourself "am I dreaming?" throughout the day. Check clocks, read text twice, try pushing your finger through your palm. Your brain will do this in dreams too.</p>
+                <p><strong>Dream Journal:</strong> Write down your dreams right when you wake up. This helps you remember dreams better and spot patterns.</p>
+                <p><strong>MILD Technique:</strong> Before sleeping, tell yourself "I'll realize I'm dreaming". Visualize yourself becoming lucid in a recent dream.</p>
+                <p><strong>WBTB Method:</strong> Wake up after 5-6 hours, stay awake for 20-30 mins, then go back to sleep. Your REM sleep is deeper = better chance of lucid dreams.</p>
+
+                <h3>The Science</h3>
+                <p>Research shows lucid dreaming happens during REM sleep when your prefrontal cortex (the part that's usually offline during dreams) lights up. About 55% of people have experienced it at least once. Regular practice can increase frequency from monthly to weekly or even nightly.</p>
+
+                <h3>Pro Tips</h3>
+                <p>Stay consistent with reality checks. Get enough sleep (7-9 hours). Avoid screens before bed. Some people use supplements like galantamine but consult a doc first. Most importantly, be patient - it takes time but it's worth it af.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="authTitle">Login</h2>
+                <span class="close" onclick="closeModal('auth')">&times;</span>
+            </div>
+            <div id="usernameField" class="hidden">
+                <input type="text" id="signupUsername" placeholder="Username">
+            </div>
+            <input type="email" id="authEmail" placeholder="Email">
+            <input type="password" id="authPassword" placeholder="Password">
+            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="handleAuth()">Login</button>
+            <button class="btn btn-secondary" style="width: 100%; margin-top: 10px;" onclick="toggleAuthMode()">
+                <span id="authToggle">Need an account? Sign up</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- New Post Modal -->
+    <div class="modal" id="newPostModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Share Your Dream</h2>
+                <span class="close" onclick="closeModal('newPost')">&times;</span>
+            </div>
+            <input type="text" id="postTitle" placeholder="Dream Title">
+            <textarea id="postContent" placeholder="Describe your dream..."></textarea>
+            <div class="image-upload">
+                <label for="imageUpload" class="btn btn-secondary" style="display: inline-block; cursor: pointer;">
+                    📷 Add Images
+                </label>
+                <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;" onchange="previewImages(event)">
+                <div id="imagePreview" class="image-preview"></div>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="createPost()">Post Dream</button>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div class="modal" id="postModal">
+        <div class="modal-content full-page">
+            <div class="modal-header">
+                <h2 id="modalPostTitle" style="font-size: 28px;"></h2>
+                <span class="close" onclick="closeModal('post')">&times;</span>
+            </div>
+            <div id="modalPostAuthor" style="color: #888; margin-bottom: 25px; font-size: 14px;"></div>
+            <div id="modalPostContent" class="dream-content-text"></div>
+            <div id="modalPostImages" class="dream-images"></div>
+            <div class="comments-section">
+                <h3>Comments <span id="commentCount"></span></h3>
+                <div id="commentsContainer"></div>
+                <div class="comment-input" id="commentInputDiv">
+                    <input type="text" id="commentInput" placeholder="Add a comment...">
+                    <button class="btn btn-primary" onclick="addComment()">Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script src="firebase.config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

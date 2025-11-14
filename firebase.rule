@@ -1,0 +1,50 @@
+{
+  "rules": {
+    "posts": {
+      ".read": true,
+      "$postId": {
+        ".write": "auth != null && (!data.exists() || data.child('authorId').val() === auth.uid)",
+        "title": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 200"
+        },
+        "content": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 5000"
+        },
+        "likes": {
+          ".write": "auth != null"
+        },
+        "views": {
+          ".write": true
+        },
+        "likedBy": {
+          "$uid": {
+            ".write": "auth != null && auth.uid === $uid"
+          }
+        },
+        "comments": {
+          "$commentId": {
+            ".write": "auth != null && (!data.exists() || data.child('authorId').val() === auth.uid)"
+          }
+        }
+      }
+    },
+    "users": {
+      "$uid": {
+        ".read": true,
+        ".write": "auth != null && auth.uid === $uid",
+        "username": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 50"
+        },
+        "email": {
+          ".validate": "newData.isString()"
+        }
+      }
+    },
+    "private": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    }
+  }
+}
