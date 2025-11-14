@@ -1,9 +1,9 @@
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyCAddflbWrZsfrA2RjpEaX1gXt1lyAiImw",
-    authDomain: "bubbleout.netlify.com",
-    databaseURL: "https://bubbledreams-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "bubbledreams",
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
     storageBucket: ""
 };
 
