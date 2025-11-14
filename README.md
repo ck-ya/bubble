@@ -49,4 +49,5 @@ got ideas to make this better? pr's are welcome. just keep it real and don't add
 ---
 
 *made with wayyy to much of caffeine and anxiety*
-(dont mind my lanuage)
+
+(dont mind my language)
