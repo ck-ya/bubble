@@ -24,7 +24,6 @@ ngl, sometimes you just need a space to yeet your thoughts into the void without
 - JavaScript 
 - CSS 
 - HTML 
-(Vanilla)
 
 - Firebase for backend
   (realtime database and auth)
