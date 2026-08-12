@@ -250,7 +250,7 @@ function renderPosts() {
                     </div>
                 </div>
                 <div class="post-content">${escapeHtml(post.content.substring(0, 200))}${post.content.length > 200 ? '...' : ''}</div>
-                ${hasImages ? '<div style="color: #888; font-size: 13px; margin-top: 10px;">📷 ' + post.images.length + ' image' + (post.images.length > 1 ? 's' : '') + '</div>' : ''}
+                ${hasImages ? '<div style="color: #766b58; font-weight: 700; font-size: 13px; margin-top: 10px;">📷 ' + post.images.length + ' image' + (post.images.length > 1 ? 's' : '') + '</div>' : ''}
                 <div class="post-actions" onclick="event.stopPropagation()">
                     <div class="post-action ${isLiked ? 'liked' : ''}" onclick="toggleLike('${post.id}')">
                         ❤️ ${post.likes || 0}
@@ -341,7 +341,7 @@ async function openPost(postId) {
             </div>
         `).join('');
     } else {
-        commentsContainer.innerHTML = '<p style="color: #888; text-align: center; padding: 20px;">No comments yet</p>';
+        commentsContainer.innerHTML = '<p style="color: #766b58; font-weight: 700; text-align: center; padding: 20px;">No comments yet</p>';
     }
 
     if (!currentUser) {
